@@ -33,4 +33,29 @@ final class MetaTagBagTest extends TestCase
             $bag->toArray()
         );
     }
+
+    public function testCanBeCreatedFromMultipleArrays(): void
+    {
+        $bag = new MetaTagBag([
+            'name' => 'description',
+            'content' => 'A description',
+        ], [
+            'name' => 'keywords',
+            'content' => 'key,words',
+        ]);
+
+        $this->assertEquals(
+            [
+                [
+                    'name' => 'description',
+                    'content' => 'A description',
+                ],
+                [
+                    'name' => 'keywords',
+                    'content' => 'key,words',
+                ],
+            ],
+            $bag->toArray()
+        );
+    }
 }
