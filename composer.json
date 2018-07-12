@@ -1,0 +1,18 @@
+{
+    "name": "bjuppa/metatagbag",
+    "description": "A convenient collection for HTML meta tags",
+    "keywords": [
+        "meta-tag",
+        "bag",
+        "collection",
+        "laravel"
+      ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Björn Nilsved",
+            "email": "nilsved@gmail.com"
+        }
+    ],
+    "require": {}
+}
