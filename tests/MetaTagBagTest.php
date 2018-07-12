@@ -15,4 +15,22 @@ final class MetaTagBagTest extends TestCase
             new MetaTagBag()
         );
     }
+
+    public function testCanBeCreatedFromSingleArray(): void
+    {
+        $bag = new MetaTagBag([
+            'name' => 'description',
+            'content' => 'A description',
+        ]);
+
+        $this->assertEquals(
+            [
+                [
+                    'name' => 'description',
+                    'content' => 'A description',
+                ],
+            ],
+            $bag->toArray()
+        );
+    }
 }
