@@ -10,10 +10,10 @@ final class MetaTagBagTest extends TestCase
 {
     public function testCanBeCreated(): void
     {
-        $this->assertInstanceOf(
-            MetaTagBag::class,
-            new MetaTagBag()
-        );
+        $bag = new MetaTagBag();
+        $this->assertInstanceOf(MetaTagBag::class, $bag);
+
+        $this->assertEquals([], $bag->toArray());
     }
 
     public function testCanBeCreatedFromSingleArray(): void
