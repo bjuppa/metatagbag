@@ -13,7 +13,8 @@ class MetaTagBag implements Arrayable
      */
     protected $tags;
 
-    public function __construct(...$tags) {
+    public function __construct(...$tags)
+    {
         $this->tags = self::normalizeArguments($tags);
     }
 
@@ -23,10 +24,21 @@ class MetaTagBag implements Arrayable
      */
     protected static function normalizeArguments($args): Collection
     {
-        return Collection::wrap($args);
+        $tags = new Collection();
+        $tag = Collection::wrap($args)->reject(function ($value, $key) use (&$tags) {
+            if (!is_string($key)) {
+                $tags = $tags->merge(self::normalizeArguments($value));
+                return true;
+            }
+        });
+        if ($tag->count()) {
+            $tags->push($tag);
+        }
+        return $tags;
     }
 
-    public function toArray(): array {
+    public function toArray(): array
+    {
         return $this->tags->toArray();
     }
 }
