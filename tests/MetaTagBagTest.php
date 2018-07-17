@@ -13,35 +13,43 @@ final class MetaTagBagTest extends TestCase
         'content' => 'A description',
     ];
 
+    protected $keywordsTag = [
+        'name' => 'keywords',
+        'content' => 'key,words',
+    ];
+
     public function testCanBeCreated(): void
     {
         $bag = new MetaTagBag();
         $this->assertInstanceOf(MetaTagBag::class, $bag);
 
-        $this->assertEquals([], $bag->toArray());
+        $this->assertEquals(
+            [],
+            $bag->toArray()
+        );
     }
 
     public function testCanBeCreatedFromSingleArray(): void
     {
         $bag = new MetaTagBag($this->descriptionTag);
 
-        $this->assertEquals([$this->descriptionTag], $bag->toArray());
+        $this->assertEquals(
+            [$this->descriptionTag],
+            $bag->toArray()
+        );
     }
 
     public function testCanBeCreatedFromMultipleArrays(): void
     {
-        $bag = new MetaTagBag($this->descriptionTag, [
-            'name' => 'keywords',
-            'content' => 'key,words',
-        ]);
+        $bag = new MetaTagBag(
+            $this->descriptionTag,
+            $this->keywordsTag
+        );
 
         $this->assertEquals(
             [
                 $this->descriptionTag,
-                [
-                    'name' => 'keywords',
-                    'content' => 'key,words',
-                ],
+                $this->keywordsTag,
             ],
             $bag->toArray()
         );
@@ -49,18 +57,12 @@ final class MetaTagBagTest extends TestCase
 
     public function testCanBeCreatedFromArrayOfArrays(): void
     {
-        $bag = new MetaTagBag([$this->descriptionTag, [
-            'name' => 'keywords',
-            'content' => 'key,words',
-        ]]);
+        $bag = new MetaTagBag([$this->descriptionTag, $this->keywordsTag]);
 
         $this->assertEquals(
             [
                 $this->descriptionTag,
-                [
-                    'name' => 'keywords',
-                    'content' => 'key,words',
-                ],
+                $this->keywordsTag,
             ],
             $bag->toArray()
         );
@@ -71,6 +73,12 @@ final class MetaTagBagTest extends TestCase
         $bag = new MetaTagBag($this->descriptionTag);
         $bag->add($this->descriptionTag);
 
-        $this->assertEquals([$this->descriptionTag, $this->descriptionTag], $bag->toArray());
+        $this->assertEquals(
+            [
+                $this->descriptionTag,
+                $this->descriptionTag,
+            ],
+            $bag->toArray()
+        );
     }
 }
