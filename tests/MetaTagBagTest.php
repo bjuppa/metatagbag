@@ -167,6 +167,13 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
+    public function testAddCanBeChained(): void
+    {
+        $bag = new MetaTagBag();
+
+        $this->assertSame($bag, $bag->add(['a' => 'b']));
+    }
+
     public function testCanFilterOutUniqueTags(): void
     {
         $bag = new MetaTagBag(['a' => 'b', 'c' => 'd']);
@@ -176,5 +183,12 @@ final class MetaTagBagTest extends TestCase
             [['c' => 'd', 'a' => 'b']],
             $bag->unique()->toArray()
         );
+    }
+
+    public function testUniqueReturnsNewInstance(): void
+    {
+        $bag = new MetaTagBag();
+
+        $this->assertNotSame($bag, $bag->unique());
     }
 }

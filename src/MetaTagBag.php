@@ -21,6 +21,7 @@ class MetaTagBag implements Arrayable
     public function add(...$tags)
     {
         $this->tags = $this->tags->merge(self::normalizeArguments($tags));
+        return $this;
     }
 
     public function unique()
