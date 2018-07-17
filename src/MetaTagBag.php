@@ -37,6 +37,16 @@ class MetaTagBag implements Arrayable
                     $value = self::unserializeString($value);
                 }
 
+                // Handle Arrayable objects
+                if ($value instanceof Arrayable) {
+                    $value = $value->toArray();
+                }
+
+                // Handle generic objects
+                if (\is_object($value)) {
+                    $value = (array) $value;
+                }
+
                 $tags = $tags->merge(self::normalizeArguments($value));
                 return true;
             }

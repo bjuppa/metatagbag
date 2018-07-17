@@ -5,6 +5,7 @@ namespace Bjuppa\MetaTagBag\Tests;
 
 use Bjuppa\MetaTagBag\MetaTagBag;
 use PHPUnit\Framework\TestCase;
+use Illuminate\Support\Collection;
 
 final class MetaTagBagTest extends TestCase
 {
@@ -64,6 +65,36 @@ final class MetaTagBagTest extends TestCase
                 $this->descriptionTag,
                 $this->keywordsTag,
             ],
+            $bag->toArray()
+        );
+    }
+
+    public function testCanBeCreatedFromArrayable(): void
+    {
+        $bag = new MetaTagBag(new Collection($this->descriptionTag));
+
+        $this->assertEquals(
+            [$this->descriptionTag],
+            $bag->toArray()
+        );
+    }
+
+    public function testCanBeCreatedFromMetaTagBag(): void
+    {
+        $bag = new MetaTagBag(new MetaTagBag($this->descriptionTag));
+
+        $this->assertEquals(
+            [$this->descriptionTag],
+            $bag->toArray()
+        );
+    }
+
+    public function testCanBeCreatedFromObject(): void
+    {
+        $bag = new MetaTagBag((object) $this->descriptionTag);
+
+        $this->assertEquals(
+            [$this->descriptionTag],
             $bag->toArray()
         );
     }
