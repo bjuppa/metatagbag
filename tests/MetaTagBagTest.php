@@ -81,4 +81,21 @@ final class MetaTagBagTest extends TestCase
             $bag->toArray()
         );
     }
+
+    public function testCanBeCreatedFromJson(): void
+    {
+        $bag = new MetaTagBag('{"a": "b"}');
+
+        $this->assertEquals(
+            [['a' => 'b']],
+            $bag->toArray()
+        );
+    }
+
+    public function testIgnoresValidJson(): void
+    {
+        $bag = new MetaTagBag("{'a': 'b}");
+
+        $this->assertEquals([], $bag->toArray());
+    }
 }

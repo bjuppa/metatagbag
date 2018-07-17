@@ -31,6 +31,16 @@ class MetaTagBag implements Arrayable
         $tags = new Collection();
         $tag = Collection::wrap($args)->reject(function ($value, $key) use (&$tags) {
             if (!is_string($key)) { //TODO: change !is_string to is_numeric, as numeric attribute names are not allowed anyway?
+                // Handle json
+                if(is_string($value)) {
+                    $decoded_json = json_decode($value, true);
+                    if(json_last_error() === JSON_ERROR_NONE) {
+                        $value = $decoded_json;
+                    } else {
+                        $value = null;
+                    }
+                }
+
                 $tags = $tags->merge(self::normalizeArguments($value));
                 return true;
             }
