@@ -140,6 +140,23 @@ final class MetaTagBagTest extends TestCase
         $this->assertEquals([], $bag->toArray());
     }
 
+    public function testCanBeCreatedFromSerialization(): void
+    {
+        $bag = new MetaTagBag(\serialize($this->descriptionTag));
+
+        $this->assertEquals(
+            [$this->descriptionTag],
+            $bag->toArray()
+        );
+    }
+
+    public function testIgnoresInvalidSerialization(): void
+    {
+        $bag = new MetaTagBag('a:2:{s:4:"name";s:11:"description";s:7:"content";s:13:"A description";');
+
+        $this->assertEquals([], $bag->toArray());
+    }
+
     public function testCanBeCreatedWithListAttribute(): void
     {
         $bag = new MetaTagBag(['a' => [1, 2]]);

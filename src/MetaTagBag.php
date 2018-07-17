@@ -68,7 +68,7 @@ class MetaTagBag implements Arrayable
             return $decoded_json;
         }
 
-        return null;
+        return @\unserialize($string) ?: null;
     }
 
     public function toArray(): array
