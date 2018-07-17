@@ -190,11 +190,13 @@ final class MetaTagBagTest extends TestCase
         $bag = new MetaTagBag(['a' => 'b', 'c' => 'd', 'loose' => 'me']);
         $bag->add(['c' => 'd', 'a' => 'b']);
         $bag->add(['keep' => 'me']);
+        $bag->add(['keep' => 'me too']);
 
         $this->assertEquals(
             [
                 ['c' => 'd', 'a' => 'b'],
                 ['keep' => 'me'],
+                ['keep' => 'me too'],
             ],
             $bag->unique(['a' => 'b'])->toArray()
         );
@@ -208,11 +210,15 @@ final class MetaTagBagTest extends TestCase
         );
         $bag->add(['c' => 'd', 'a' => 'b']);
         $bag->add(['aa' => 'b', 'c' => 'd']);
+        $bag->add(['keep' => 'me']);
+        $bag->add(['keep' => 'me too']);
 
         $this->assertEquals(
             [
                 ['c' => 'd', 'a' => 'b'],
                 ['aa' => 'b', 'c' => 'd'],
+                ['keep' => 'me'],
+                ['keep' => 'me too'],
             ],
             $bag->unique(['a' => 'b'], ['aa' => 'b'])->toArray()
         );

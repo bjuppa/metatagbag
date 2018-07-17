@@ -26,13 +26,16 @@ class MetaTagBag implements Arrayable
 
     public function unique(...$attributes)
     {
-        $tags = $this->tags->reverse->unique();
+        $tags = $this->tags->reverse();
         self::normalizeArguments($attributes)->each(function ($attributes) use (&$tags) {
             $tags = $tags->unique(function($tag) use ($attributes) {
-                return $attributes->diffAssoc($tag);
+                if($attributes->diffAssoc($tag)->isEmpty()) {
+                    return $attributes;
+                }
+                return $tag;
             });
         });
-        return new static($tags->reverse());
+        return new static($tags->unique()->reverse());
     }
 
     /**
