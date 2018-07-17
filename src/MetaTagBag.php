@@ -18,7 +18,8 @@ class MetaTagBag implements Arrayable
         $this->tags = self::normalizeArguments($tags);
     }
 
-    public function add(...$tags) {
+    public function add(...$tags)
+    {
         $this->tags = $this->tags->merge(self::normalizeArguments($tags));
     }
 
@@ -30,12 +31,12 @@ class MetaTagBag implements Arrayable
     {
         $tags = new Collection();
         $tag = Collection::wrap($args)->reject(function ($value, $key) use (&$tags) {
-            if (!is_string($key)) { //TODO: change !is_string to is_numeric, as numeric attribute names are not allowed anyway?
+            if (is_numeric($key)) {
                 // Handle serialized data
-                if(is_string($value)) {
+                if (is_string($value)) {
                     // Try json decoding
                     $decoded_json = json_decode($value, true);
-                    if(json_last_error() === JSON_ERROR_NONE) {
+                    if (json_last_error() === JSON_ERROR_NONE) {
                         $value = $decoded_json;
                     } else {
                         return true;
