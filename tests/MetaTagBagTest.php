@@ -92,7 +92,7 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
-    public function testIgnoresValidJson(): void
+    public function testIgnoresInvalidJson(): void
     {
         $bag = new MetaTagBag("{'a': 'b}");
 
