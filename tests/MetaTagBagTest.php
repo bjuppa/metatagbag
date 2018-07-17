@@ -174,7 +174,7 @@ final class MetaTagBagTest extends TestCase
         $this->assertSame($bag, $bag->add(['a' => 'b']));
     }
 
-    public function testCanFilterOutUniqueTags(): void
+    public function testCanFilterUniqueTags(): void
     {
         $bag = new MetaTagBag(['a' => 'b', 'c' => 'd']);
         $bag->add(['c' => 'd', 'a' => 'b']);
@@ -182,6 +182,39 @@ final class MetaTagBagTest extends TestCase
         $this->assertEquals(
             [['c' => 'd', 'a' => 'b']],
             $bag->unique()->toArray()
+        );
+    }
+
+    public function testCanFilterUniqueTagsByAttribute(): void
+    {
+        $bag = new MetaTagBag(['a' => 'b', 'c' => 'd', 'loose' => 'me']);
+        $bag->add(['c' => 'd', 'a' => 'b']);
+        $bag->add(['keep' => 'me']);
+
+        $this->assertEquals(
+            [
+                ['c' => 'd', 'a' => 'b'],
+                ['keep' => 'me'],
+            ],
+            $bag->unique(['a' => 'b'])->toArray()
+        );
+    }
+
+    public function testCanFilterUniqueTagsByAttributes(): void
+    {
+        $bag = new MetaTagBag(
+            ['a' => 'b', 'c' => 'd', 'loose' => 'me'],
+            ['aa' => 'b', 'c' => 'd', 'loose' => 'me']
+        );
+        $bag->add(['c' => 'd', 'a' => 'b']);
+        $bag->add(['aa' => 'b', 'c' => 'd']);
+
+        $this->assertEquals(
+            [
+                ['c' => 'd', 'a' => 'b'],
+                ['aa' => 'b', 'c' => 'd'],
+            ],
+            $bag->unique(['a' => 'b'], ['aa' => 'b'])->toArray()
         );
     }
 
