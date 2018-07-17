@@ -23,38 +23,21 @@ final class MetaTagBagTest extends TestCase
 
     public function testCanBeCreatedFromSingleArray(): void
     {
-        $bag = new MetaTagBag([
-            'name' => 'description',
-            'content' => 'A description',
-        ]);
+        $bag = new MetaTagBag($this->descriptionTag);
 
-        $this->assertEquals(
-            [
-                [
-                    'name' => 'description',
-                    'content' => 'A description',
-                ],
-            ],
-            $bag->toArray()
-        );
+        $this->assertEquals([$this->descriptionTag], $bag->toArray());
     }
 
     public function testCanBeCreatedFromMultipleArrays(): void
     {
-        $bag = new MetaTagBag([
-            'name' => 'description',
-            'content' => 'A description',
-        ], [
+        $bag = new MetaTagBag($this->descriptionTag, [
             'name' => 'keywords',
             'content' => 'key,words',
         ]);
 
         $this->assertEquals(
             [
-                [
-                    'name' => 'description',
-                    'content' => 'A description',
-                ],
+                $this->descriptionTag,
                 [
                     'name' => 'keywords',
                     'content' => 'key,words',
@@ -66,20 +49,14 @@ final class MetaTagBagTest extends TestCase
 
     public function testCanBeCreatedFromArrayOfArrays(): void
     {
-        $bag = new MetaTagBag([[
-            'name' => 'description',
-            'content' => 'A description',
-        ], [
+        $bag = new MetaTagBag([$this->descriptionTag, [
             'name' => 'keywords',
             'content' => 'key,words',
         ]]);
 
         $this->assertEquals(
             [
-                [
-                    'name' => 'description',
-                    'content' => 'A description',
-                ],
+                $this->descriptionTag,
                 [
                     'name' => 'keywords',
                     'content' => 'key,words',
