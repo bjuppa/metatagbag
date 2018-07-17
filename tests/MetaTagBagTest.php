@@ -4,8 +4,8 @@ declare (strict_types = 1);
 namespace Bjuppa\MetaTagBag\Tests;
 
 use Bjuppa\MetaTagBag\MetaTagBag;
-use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\TestCase;
 
 final class MetaTagBagTest extends TestCase
 {
@@ -138,5 +138,15 @@ final class MetaTagBagTest extends TestCase
         $bag = new MetaTagBag("{'a': 'b}");
 
         $this->assertEquals([], $bag->toArray());
+    }
+
+    public function testCanBeCreatedWithListAttribute(): void
+    {
+        $bag = new MetaTagBag(['a' => [1, 2]]);
+
+        $this->assertEquals(
+            [['a' => [1, 2]]],
+            $bag->toArray()
+        );
     }
 }
