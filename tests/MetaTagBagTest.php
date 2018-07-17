@@ -109,20 +109,6 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
-    public function testCanAddDuplicate(): void
-    {
-        $bag = new MetaTagBag($this->descriptionTag);
-        $bag->add($this->descriptionTag);
-
-        $this->assertEquals(
-            [
-                $this->descriptionTag,
-                $this->descriptionTag,
-            ],
-            $bag->toArray()
-        );
-    }
-
     public function testCanBeCreatedFromJson(): void
     {
         $bag = new MetaTagBag('{"a": "b"}');
@@ -164,6 +150,31 @@ final class MetaTagBagTest extends TestCase
         $this->assertEquals(
             [['a' => [1, 2]]],
             $bag->toArray()
+        );
+    }
+
+    public function testCanAddDuplicate(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag);
+        $bag->add($this->descriptionTag);
+
+        $this->assertEquals(
+            [
+                $this->descriptionTag,
+                $this->descriptionTag,
+            ],
+            $bag->toArray()
+        );
+    }
+
+    public function testCanFilterOutUniqueTags(): void
+    {
+        $bag = new MetaTagBag(['a' => 'b', 'c' => 'd']);
+        $bag->add(['c' => 'd', 'a' => 'b']);
+
+        $this->assertEquals(
+            [['c' => 'd', 'a' => 'b']],
+            $bag->unique()->toArray()
         );
     }
 }

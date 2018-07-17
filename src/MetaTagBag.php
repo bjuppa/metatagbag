@@ -23,6 +23,11 @@ class MetaTagBag implements Arrayable
         $this->tags = $this->tags->merge(self::normalizeArguments($tags));
     }
 
+    public function unique()
+    {
+        return new static($this->tags->unique());
+    }
+
     /**
      * Parse arguments into a collection of tags
      * each item corresponding to one meta tag.
