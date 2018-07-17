@@ -34,13 +34,7 @@ class MetaTagBag implements Arrayable
             if (is_numeric($key)) {
                 // Handle serialized data
                 if (is_string($value)) {
-                    // Try json decoding
-                    $decoded_json = json_decode($value, true);
-                    if (json_last_error() === JSON_ERROR_NONE) {
-                        $value = $decoded_json;
-                    } else {
-                        return true;
-                    }
+                    $value = self::unserializeString($value);
                 }
 
                 $tags = $tags->merge(self::normalizeArguments($value));
@@ -51,6 +45,20 @@ class MetaTagBag implements Arrayable
             $tags->push($tag);
         }
         return $tags;
+    }
+
+    /**
+     * Unserialize string to array
+     * @return array|null
+     */
+    protected static function unserializeString(string $string)
+    {
+        $decoded_json = json_decode($string, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            return $decoded_json;
+        }
+
+        return null;
     }
 
     public function toArray(): array
