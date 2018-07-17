@@ -18,6 +18,10 @@ class MetaTagBag implements Arrayable
         $this->tags = self::normalizeArguments($tags);
     }
 
+    public function add(...$tags) {
+        $this->tags = $this->tags->merge(self::normalizeArguments($tags));
+    }
+
     /**
      * Parse arguments into a collection of tags
      * each item corresponding to one meta tag.
@@ -26,7 +30,7 @@ class MetaTagBag implements Arrayable
     {
         $tags = new Collection();
         $tag = Collection::wrap($args)->reject(function ($value, $key) use (&$tags) {
-            if (!is_string($key)) {
+            if (!is_string($key)) { //TODO: change !is_string to is_numeric, as numeric attribute names are not allowed anyway?
                 $tags = $tags->merge(self::normalizeArguments($value));
                 return true;
             }

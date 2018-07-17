@@ -8,6 +8,11 @@ use PHPUnit\Framework\TestCase;
 
 final class MetaTagBagTest extends TestCase
 {
+    protected $descriptionTag = [
+        'name' => 'description',
+        'content' => 'A description',
+    ];
+
     public function testCanBeCreated(): void
     {
         $bag = new MetaTagBag();
@@ -82,5 +87,13 @@ final class MetaTagBagTest extends TestCase
             ],
             $bag->toArray()
         );
+    }
+
+    public function testCanAddDuplicate(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag);
+        $bag->add($this->descriptionTag);
+
+        $this->assertEquals([$this->descriptionTag, $this->descriptionTag], $bag->toArray());
     }
 }
