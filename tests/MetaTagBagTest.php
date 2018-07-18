@@ -230,4 +230,13 @@ final class MetaTagBagTest extends TestCase
 
         $this->assertNotSame($bag, $bag->unique());
     }
+
+    public function testCanBeConvertedToHTML()
+    {
+        $bag = new MetaTagBag(['a' => 'b', 'c' => 'd']);
+
+        $this->assertEquals(
+            "<meta a=\"b\" c=\"d\">",
+            $bag->toHtml());
+    }
 }

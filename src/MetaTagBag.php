@@ -4,9 +4,10 @@ declare (strict_types = 1);
 namespace Bjuppa\MetaTagBag;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 
-class MetaTagBag implements Arrayable
+class MetaTagBag implements Arrayable, Htmlable
 {
     /**
      * @var Collection
@@ -28,8 +29,8 @@ class MetaTagBag implements Arrayable
     {
         $tags = $this->tags->reverse();
         self::normalizeArguments($attributes)->each(function ($attributes) use (&$tags) {
-            $tags = $tags->unique(function($tag) use ($attributes) {
-                if($attributes->diffAssoc($tag)->isEmpty()) {
+            $tags = $tags->unique(function ($tag) use ($attributes) {
+                if ($attributes->diffAssoc($tag)->isEmpty()) {
                     return $attributes;
                 }
                 return $tag;
@@ -89,5 +90,14 @@ class MetaTagBag implements Arrayable
     public function toArray(): array
     {
         return $this->tags->toArray();
+    }
+
+    public function toHtml(): string
+    {
+        return $this->tags->map(function ($tag) {
+            return "<meta " . $tag->map(function ($value, $name) {
+                return $name . '="' . $value . '"';
+            })->implode(' ') . ">";
+        })->implode("\n");
     }
 }
