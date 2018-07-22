@@ -231,7 +231,7 @@ final class MetaTagBagTest extends TestCase
         $this->assertNotSame($bag, $bag->unique());
     }
 
-    public function testCanBeConvertedToHTML()
+    public function testCanBeConvertedToHTML(): void
     {
         $bag = new MetaTagBag(['a' => 'b', 'c' => 'd']);
 
@@ -240,12 +240,26 @@ final class MetaTagBagTest extends TestCase
             $bag->toHtml());
     }
 
-    public function testEncodesHtmlSpecialCharacters()
+    public function testEncodesHtmlSpecialCharacters(): void
     {
         $bag = new MetaTagBag(['a' => '<&>"']);
 
         $this->assertContains(
             'a="&lt;&amp;&gt;&quot;"',
+            $bag->toHtml()
+        );
+    }
+
+    public function testHtmlIsFreeFromDuplicates(): void
+    {
+        $bag = new MetaTagBag(
+            ['a' => 'b', 'c' => 'd'],
+            ['c' => 'd', 'a' => 'b'],
+            ['a' => 'b', 'c' => 'd', 'e' => 'f']
+        );
+
+        $this->assertEquals(
+            implode(['<meta c="d" a="b">', '<meta a="b" c="d" e="f">'], "\n"),
             $bag->toHtml()
         );
     }

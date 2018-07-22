@@ -94,10 +94,13 @@ class MetaTagBag implements Arrayable, Htmlable
 
     public function toHtml(): string
     {
-        return $this->tags->map(function ($tag) {
-            return "<meta " . $tag->map(function ($value, $name) {
-                return $name . '="' . htmlspecialchars($value) . '"';
-            })->implode(' ') . ">";
-        })->implode("\n");
+        return $this->unique()
+            ->tags
+            ->map(function ($tag) {
+                return "<meta " . $tag->map(function ($value, $name) {
+                    return $name . '="' . htmlspecialchars($value) . '"';
+                })->implode(' ') . ">";
+            })
+            ->implode("\n");
     }
 }
