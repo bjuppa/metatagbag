@@ -239,4 +239,14 @@ final class MetaTagBagTest extends TestCase
             "<meta a=\"b\" c=\"d\">",
             $bag->toHtml());
     }
+
+    public function testEncodesHtmlSpecialCharacters()
+    {
+        $bag = new MetaTagBag(['a' => '<&>"']);
+
+        $this->assertContains(
+            'a="&lt;&amp;&gt;&quot;"',
+            $bag->toHtml()
+        );
+    }
 }

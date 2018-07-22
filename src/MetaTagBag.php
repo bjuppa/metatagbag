@@ -96,7 +96,7 @@ class MetaTagBag implements Arrayable, Htmlable
     {
         return $this->tags->map(function ($tag) {
             return "<meta " . $tag->map(function ($value, $name) {
-                return $name . '="' . $value . '"';
+                return $name . '="' . htmlspecialchars($value) . '"';
             })->implode(' ') . ">";
         })->implode("\n");
     }
