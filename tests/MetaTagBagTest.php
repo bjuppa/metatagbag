@@ -30,6 +30,17 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
+    public function testCanBeCreatedThhroughCreator(): void
+    {
+        $bag = MetaTagBag::create($this->descriptionTag);
+        $this->assertInstanceOf(MetaTagBag::class, $bag);
+
+        $this->assertEquals(
+            [$this->descriptionTag],
+            $bag->toArray()
+        );
+    }
+
     public function testCanBeCreatedFromSingleArray(): void
     {
         $bag = new MetaTagBag($this->descriptionTag);
