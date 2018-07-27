@@ -275,7 +275,7 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
-    public function testCanAddInMerge(): void
+    public function testMergeAdds(): void
     {
         $bag = new MetaTagBag($this->descriptionTag);
         $bag->merge($this->keywordsTag);
@@ -285,6 +285,50 @@ final class MetaTagBagTest extends TestCase
                 $this->descriptionTag,
                 $this->keywordsTag,
             ],
+            $bag->toArray()
+        );
+    }
+
+    public function testMergeOverwritesByName(): void
+    {
+        $bag = new MetaTagBag(['name' => 'a', 'loose' => 'me']);
+        $bag->merge(['name' => 'a']);
+
+        $this->assertEquals(
+            [['name' =>'a']],
+            $bag->toArray()
+        );
+    }
+
+    public function testMergeOverwritesByHttpEquiv(): void
+    {
+        $bag = new MetaTagBag(['http-equiv' => 'a', 'loose' => 'me']);
+        $bag->merge(['http-equiv' => 'a']);
+
+        $this->assertEquals(
+            [['http-equiv' =>'a']],
+            $bag->toArray()
+        );
+    }
+
+    public function testMergeOverwritesByItemprop(): void
+    {
+        $bag = new MetaTagBag(['itemprop' => 'a', 'loose' => 'me']);
+        $bag->merge(['itemprop' => 'a']);
+
+        $this->assertEquals(
+            [['itemprop' =>'a']],
+            $bag->toArray()
+        );
+    }
+
+    public function testMergeOverwritesByProperty(): void
+    {
+        $bag = new MetaTagBag(['property' => 'a', 'loose' => 'me']);
+        $bag->merge(['property' => 'a']);
+
+        $this->assertEquals(
+            [['property' =>'a']],
             $bag->toArray()
         );
     }
