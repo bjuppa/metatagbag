@@ -30,6 +30,12 @@ class MetaTagBag implements Arrayable, Htmlable
         return $this;
     }
 
+    public function merge(...$tags)
+    {
+        $this->tags = $this->tags->merge(self::normalizeArguments($tags));
+        return $this;
+    }
+
     public function unique(...$attributes)
     {
         $tags = $this->tags->reverse();

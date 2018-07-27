@@ -274,4 +274,18 @@ final class MetaTagBagTest extends TestCase
             $bag->toHtml()
         );
     }
+
+    public function testCanAddInMerge(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag);
+        $bag->merge($this->keywordsTag);
+
+        $this->assertEquals(
+            [
+                $this->descriptionTag,
+                $this->keywordsTag,
+            ],
+            $bag->toArray()
+        );
+    }
 }
