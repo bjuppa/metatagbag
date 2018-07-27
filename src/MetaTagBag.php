@@ -32,7 +32,18 @@ class MetaTagBag implements Arrayable, Htmlable
 
     public function merge(...$tags)
     {
-        $this->tags = $this->tags->merge(self::normalizeArguments($tags));
+        self::normalizeArguments($tags)->each(function ($tag) {
+            foreach (['name', 'http-equiv', 'itemprop', 'property'] as $attribute) {
+                if ($tag->has($attribute)) {
+                    $this->remove($tag->only($attribute));
+                }
+            }
+        });
+        return $this->add($tags);
+    }
+
+    public function remove(...$attributes)
+    {
         return $this;
     }
 
