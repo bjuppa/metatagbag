@@ -30,9 +30,9 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
-    public function testCanBeCreatedThhroughCreator(): void
+    public function testCanBeCreatedThroughStaticMethod(): void
     {
-        $bag = MetaTagBag::create($this->descriptionTag);
+        $bag = MetaTagBag::make($this->descriptionTag);
         $this->assertInstanceOf(MetaTagBag::class, $bag);
 
         $this->assertEquals(

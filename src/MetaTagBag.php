@@ -19,7 +19,7 @@ class MetaTagBag implements Arrayable, Htmlable
         $this->tags = self::normalizeArguments($tags);
     }
 
-    public static function create(...$tags)
+    public static function make(...$tags)
     {
         return new static($tags);
     }
