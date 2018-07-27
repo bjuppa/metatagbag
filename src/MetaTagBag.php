@@ -35,14 +35,14 @@ class MetaTagBag implements Arrayable, Htmlable
         self::normalizeArguments($tags)->each(function ($tag) {
             foreach (['name', 'http-equiv', 'itemprop', 'property'] as $attribute) {
                 if ($tag->has($attribute)) {
-                    $this->remove($tag->only($attribute));
+                    $this->forget($tag->only($attribute));
                 }
             }
         });
         return $this->add($tags);
     }
 
-    public function remove(...$attributes)
+    public function forget(...$attributes)
     {
         return $this;
     }

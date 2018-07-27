@@ -333,10 +333,10 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
-    public function testRemoveCanBeChained(): void
+    public function testForgetCanBeChained(): void
     {
         $bag = new MetaTagBag();
 
-        $this->assertSame($bag, $bag->remove(['a' => 'b']));
+        $this->assertSame($bag, $bag->forget(['a' => 'b']));
     }
 }
