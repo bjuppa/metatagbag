@@ -44,6 +44,12 @@ class MetaTagBag implements Arrayable, Htmlable
 
     public function forget(...$attributes)
     {
+        $forget = self::normalizeArguments($attributes);
+        $this->tags = $this->tags->reject(function ($tag) use ($forget) {
+            return (bool) $forget->first(function ($attributes) use ($tag) {
+                return $attributes->diffAssoc($tag)->isEmpty();
+            });
+        })->values();
         return $this;
     }
 

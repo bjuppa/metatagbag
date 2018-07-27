@@ -295,7 +295,7 @@ final class MetaTagBagTest extends TestCase
         $bag->merge(['name' => 'a']);
 
         $this->assertEquals(
-            [['name' =>'a']],
+            [['name' => 'a']],
             $bag->toArray()
         );
     }
@@ -306,7 +306,7 @@ final class MetaTagBagTest extends TestCase
         $bag->merge(['http-equiv' => 'a']);
 
         $this->assertEquals(
-            [['http-equiv' =>'a']],
+            [['http-equiv' => 'a']],
             $bag->toArray()
         );
     }
@@ -317,7 +317,7 @@ final class MetaTagBagTest extends TestCase
         $bag->merge(['itemprop' => 'a']);
 
         $this->assertEquals(
-            [['itemprop' =>'a']],
+            [['itemprop' => 'a']],
             $bag->toArray()
         );
     }
@@ -328,15 +328,33 @@ final class MetaTagBagTest extends TestCase
         $bag->merge(['property' => 'a']);
 
         $this->assertEquals(
-            [['property' =>'a']],
+            [['property' => 'a']],
             $bag->toArray()
         );
     }
 
     public function testForgetCanBeChained(): void
     {
-        $bag = new MetaTagBag();
+        $bag = new MetaTagBag(['a' => 'b']);
 
         $this->assertSame($bag, $bag->forget(['a' => 'b']));
+    }
+
+    public function testCanForgetTagsByAttribute(): void
+    {
+        $bag = new MetaTagBag(['loose' => 'me'], ['keep' => 'me']);
+        $bag->forget(['loose' => 'me']);
+
+        $this->assertEquals([['keep' => 'me']], $bag->toArray());
+    }
+
+    public function testCanForgetTagsByAttributes(): void
+    {
+        $bag = new MetaTagBag(['a' => 'b', 'loose' => 'me']);
+        $bag->add(['a' => 'b', 'keep' => 'me']);
+        $bag->add(['a' => 'b', 'loose_me' => 'too']);
+        $bag->forget(['loose' => 'me', 'a' => 'b'], ['loose_me' => 'too']);
+
+        $this->assertEquals([['a' => 'b', 'keep' => 'me']], $bag->toArray());
     }
 }
