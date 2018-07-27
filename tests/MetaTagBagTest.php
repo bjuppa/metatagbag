@@ -275,6 +275,13 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
+    public function testMergeCanBeChained(): void
+    {
+        $bag = new MetaTagBag(['a' => 'b']);
+
+        $this->assertSame($bag, $bag->merge(['a' => 'b']));
+    }
+
     public function testMergeAdds(): void
     {
         $bag = new MetaTagBag($this->descriptionTag);
