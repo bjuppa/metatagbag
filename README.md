@@ -1,11 +1,43 @@
 # Meta Tag Bag
 
-A class for collecting HTML meta tags.
+A PHP class for collecting HTML meta tags.
 Works well with Laravel, and without.
+
+`composer require bjuppa/metatagbag`
 
 ## Creating a `MetaTagBag`
 
+```php
+use Bjuppa\MetaTagBag\MetaTagBag;
+
+$bag = new MetaTagBag(
+  [
+    'name' => 'description',
+    'content' => 'A description',
+  ],
+  [
+    'name' => 'keywords',
+    'content' => 'key,words',
+  ]
+);
+
+// ...or using static creator:
+
+$bag = MetaTagBag::make(
+  [
+    'name' => 'description',
+    'content' => 'A description',
+  ],
+  [
+    'name' => 'keywords',
+    'content' => 'key,words',
+  ]
+);
+
+```
+
 ## Output
+
 
 ## Adding tags
 
