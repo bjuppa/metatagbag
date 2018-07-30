@@ -6,3 +6,4 @@
 
 .editorconfig export-ignore
 phpunit.xml.dist export-ignore
+DEVELOPMENT.md export-ignore
