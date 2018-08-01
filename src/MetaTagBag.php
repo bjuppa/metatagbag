@@ -6,6 +6,7 @@ namespace Bjuppa\MetaTagBag;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
+use Bjuppa\MetaTagBag\Contracts\MetaTagProvider;
 
 class MetaTagBag implements Arrayable, Htmlable
 {
@@ -76,6 +77,11 @@ class MetaTagBag implements Arrayable, Htmlable
         $tags = new Collection();
         $tag = Collection::wrap($args)->reject(function ($value, $key) use (&$tags) {
             if (is_numeric($key)) {
+                // Handle MetaTagProvider contract implementations
+                if($value instanceof MetaTagProvider) {
+                    $value = $value->getMetaTagBag();
+                }
+
                 // Handle serialized data
                 if (is_string($value)) {
                     $value = self::unserializeString($value);

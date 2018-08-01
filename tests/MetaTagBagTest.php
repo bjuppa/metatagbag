@@ -100,6 +100,16 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
+    public function testCanBeCreatedFromMetaTagProviderContract(): void
+    {
+        $bag = new MetaTagBag(new \Bjuppa\MetaTagBag\Tests\Fakes\MetaTagProvider($this->descriptionTag));
+
+        $this->assertEquals(
+            [$this->descriptionTag],
+            $bag->toArray()
+        );
+    }
+
     public function testCanBeCreatedFromObject(): void
     {
         $bag = new MetaTagBag((object) $this->descriptionTag);
