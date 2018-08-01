@@ -27,6 +27,11 @@
       "Bjuppa\\MetaTagBag\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Bjuppa\\MetaTagBag\\Tests\\": "tests/"
+    }
+  },
   "scripts": {
     "test": "vendor/bin/phpunit"
   }
