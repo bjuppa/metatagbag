@@ -508,4 +508,18 @@ final class MetaTagBagTest extends TestCase
 
         $this->assertEquals(3, count($bag));
     }
+
+    public function testEmptyHasMatchesNothing(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag);
+
+        $this->assertEquals(false, $bag->has());
+    }
+
+    public function testHas(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag);
+
+        $this->assertEquals(true, $bag->has($this->descriptionTag));
+    }
 }

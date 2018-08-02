@@ -86,6 +86,11 @@ class MetaTagBag implements Arrayable, Htmlable, \Countable
         return $this->match($attributes)->count();
     }
 
+    public function has(...$attributes)
+    {
+        return (bool) $this->count($attributes);
+    }
+
     /**
      * Parse arguments into a collection of tags
      * each item corresponding to one meta tag.
