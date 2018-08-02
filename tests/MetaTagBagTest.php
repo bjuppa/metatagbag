@@ -397,6 +397,13 @@ final class MetaTagBagTest extends TestCase
         $this->assertNotSame($bag, $bag->match());
     }
 
+    public function testEmptyMatchMatchesNothing(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag);
+
+        $this->assertEquals([], $bag->match()->toArray());
+    }
+
     public function testCanMatchTagsByAttribute(): void
     {
         $bag = new MetaTagBag(['a' => 'b', 'c' => 'd']);
