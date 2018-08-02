@@ -8,7 +8,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 
-class MetaTagBag implements Arrayable, Htmlable
+class MetaTagBag implements Arrayable, Htmlable, \Countable
 {
     /**
      * @var Collection

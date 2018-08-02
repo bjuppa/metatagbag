@@ -497,4 +497,15 @@ final class MetaTagBagTest extends TestCase
 
         $this->assertEquals(2, $bag->count(['count' => 'me'], ['count' => 'me too']));
     }
+
+    public function testIsCountable(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag, $this->keywordsTag);
+
+        $this->assertEquals(2, count($bag));
+
+        $bag->add(['a' => 'b']);
+
+        $this->assertEquals(3, count($bag));
+    }
 }
