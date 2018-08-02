@@ -3,10 +3,10 @@ declare (strict_types = 1);
 
 namespace Bjuppa\MetaTagBag;
 
+use Bjuppa\MetaTagBag\Contracts\MetaTagProvider;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
-use Bjuppa\MetaTagBag\Contracts\MetaTagProvider;
 
 class MetaTagBag implements Arrayable, Htmlable
 {
@@ -68,6 +68,16 @@ class MetaTagBag implements Arrayable, Htmlable
         return new static($tags->unique()->reverse());
     }
 
+    public function match(...$attributes)
+    {
+        $match = self::normalizeArguments($attributes);
+        return new static($this->tags->filter(function ($tag) use ($match) {
+            return (bool) $match->first(function ($attributes) use ($tag) {
+                return $attributes->diffAssoc($tag)->isEmpty();
+            });
+        })->values());
+    }
+
     /**
      * Parse arguments into a collection of tags
      * each item corresponding to one meta tag.
@@ -78,7 +88,7 @@ class MetaTagBag implements Arrayable, Htmlable
         $tag = Collection::wrap($args)->reject(function ($value, $key) use (&$tags) {
             if (is_numeric($key)) {
                 // Handle MetaTagProvider contract implementations
-                if($value instanceof MetaTagProvider) {
+                if ($value instanceof MetaTagProvider) {
                     $value = $value->getMetaTagBag();
                 }
 

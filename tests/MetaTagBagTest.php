@@ -374,4 +374,58 @@ final class MetaTagBagTest extends TestCase
 
         $this->assertEquals([['a' => 'b', 'keep' => 'me']], $bag->toArray());
     }
+
+    public function testMatchReturnsNewInstance(): void
+    {
+        $bag = new MetaTagBag();
+
+        $this->assertNotSame($bag, $bag->match());
+    }
+
+    public function testCanMatchTagsByAttribute(): void
+    {
+        $bag = new MetaTagBag(['a' => 'b', 'c' => 'd']);
+        $bag->add(['e' => 'f', 'a' => 'b']);
+        $bag->add(['loose' => 'me']);
+        $bag->add(['a' => 'c', 'loose' => 'me too']);
+
+        $this->assertEquals(
+            [
+                ['a' => 'b', 'c' => 'd'],
+                ['e' => 'f', 'a' => 'b'],
+            ],
+            $bag->match(['a' => 'b'])->toArray()
+        );
+    }
+
+    public function testCanMatchTagsByAttributes(): void
+    {
+        $bag = new MetaTagBag(['a' => 'b', 'c' => 'd']);
+        $bag->add(['a' => 'b', 'loose' => 'me']);
+
+        $this->assertEquals(
+            [
+                ['a' => 'b', 'c' => 'd'],
+            ],
+            $bag->match(['a' => 'b', 'c' => 'd'])->toArray()
+        );
+    }
+
+    public function testCanMatchMultipleTags(): void
+    {
+        $bag = new MetaTagBag(['a' => 'b', 'c' => 'd']);
+        $bag->add(['e' => 'f', 'a' => 'b']);
+        $bag->add(['c' => 'd', 'e' => 'f']);
+        $bag->add(['loose' => 'me']);
+        $bag->add(['a' => 'c', 'loose' => 'me too']);
+
+        $this->assertEquals(
+            [
+                ['a' => 'b', 'c' => 'd'],
+                ['e' => 'f', 'a' => 'b'],
+                ['c' => 'd', 'e' => 'f'],
+            ],
+            $bag->match(['a' => 'b'], ['c' => 'd'])->toArray()
+        );
+    }
 }
