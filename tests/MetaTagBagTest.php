@@ -450,4 +450,51 @@ final class MetaTagBagTest extends TestCase
             $bag->match(['a' => 'b'], ['c' => 'd'])->toArray()
         );
     }
+
+    public function testCountOfEmptyBag(): void
+    {
+        $bag = new MetaTagBag();
+
+        $this->assertEquals(0, $bag->count());
+    }
+
+    public function testCount(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag, $this->keywordsTag);
+
+        $this->assertEquals(2, $bag->count());
+    }
+
+    public function testCountTagsByAttribute(): void
+    {
+        $bag = new MetaTagBag(
+            ['a' => 'b', 'count' => 'me'],
+            ['a' => 'b', 'count' => 'me too'],
+            ['count' => 'me out']
+        );
+
+        $this->assertEquals(2, $bag->count(['a' => 'b']));
+    }
+
+    public function testCountTagsByAttributes(): void
+    {
+        $bag = new MetaTagBag(
+            ['a' => 'b', 'count' => 'me'],
+            ['a' => 'b', 'count' => 'me', 'c' => 'd'],
+            ['a' => 'b', 'count' => 'me out']
+        );
+
+        $this->assertEquals(2, $bag->count(['a' => 'b', 'count' => 'me']));
+    }
+
+    public function testCountByMultipleTags(): void
+    {
+        $bag = new MetaTagBag(
+            ['a' => 'b', 'count' => 'me'],
+            ['a' => 'b', 'count' => 'me too'],
+            ['a' => 'b', 'count' => 'me out']
+        );
+
+        $this->assertEquals(2, $bag->count(['count' => 'me'], ['count' => 'me too']));
+    }
 }
