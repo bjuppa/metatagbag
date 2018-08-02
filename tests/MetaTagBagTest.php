@@ -225,6 +225,21 @@ final class MetaTagBagTest extends TestCase
 
     public function testCanFilterUniqueTagsByAttributes(): void
     {
+        $bag = new MetaTagBag(['a' => 'b', 'c' => 'd', 'loose' => 'me']);
+        $bag->add(['a' => 'b', 'c' => 'd']);
+        $bag->add(['a' => 'b', 'keep' => 'me']);
+
+        $this->assertEquals(
+            [
+                ['a' => 'b', 'c' => 'd'],
+                ['a' => 'b', 'keep' => 'me'],
+            ],
+            $bag->unique(['a' => 'b', 'c' => 'd'])->toArray()
+        );
+    }
+
+    public function testCanFilterMultipleUniqueTags(): void
+    {
         $bag = new MetaTagBag(
             ['a' => 'b', 'c' => 'd', 'loose' => 'me'],
             ['aa' => 'b', 'c' => 'd', 'loose' => 'me']
