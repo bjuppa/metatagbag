@@ -92,6 +92,17 @@ class MetaTagBag implements Arrayable, Htmlable, \Countable
     }
 
     /**
+     * Pass the bag to the given callback and return the result.
+     *
+     * @param  callable $callback
+     * @return mixed
+     */
+    public function pipe(callable $callback)
+    {
+        return $callback($this);
+    }
+
+    /**
      * Parse arguments into a collection of tags
      * each item corresponding to one meta tag.
      */

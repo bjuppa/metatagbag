@@ -529,4 +529,13 @@ final class MetaTagBagTest extends TestCase
 
         $this->assertEquals($bag->toHtml(), (string) $bag);
     }
+
+    public function testPipe(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag);
+
+        $this->assertEquals([$this->descriptionTag], $bag->pipe(function ($bag) {
+            return $bag->toArray();
+        }));
+    }
 }
