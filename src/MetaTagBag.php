@@ -157,4 +157,9 @@ class MetaTagBag implements Arrayable, Htmlable, \Countable
             })
             ->implode("\n");
     }
+
+    public function __toString()
+    {
+        return $this->toHtml();
+    }
 }

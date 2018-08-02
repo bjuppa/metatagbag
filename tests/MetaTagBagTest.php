@@ -522,4 +522,11 @@ final class MetaTagBagTest extends TestCase
 
         $this->assertEquals(true, $bag->has($this->descriptionTag));
     }
+
+    public function testConvertingToStringReturnsHtml(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag);
+
+        $this->assertEquals($bag->toHtml(), (string) $bag);
+    }
 }
