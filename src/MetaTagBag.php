@@ -95,22 +95,19 @@ class MetaTagBag implements Arrayable, Htmlable, \Countable
         $tags = new Collection();
         $tag = Collection::wrap($args)->reject(function ($value, $key) use (&$tags) {
             if (is_numeric($key)) {
-                // Handle MetaTagProvider contract implementations
                 if ($value instanceof MetaTagProvider) {
                     $value = $value->getMetaTagBag();
                 }
 
-                // Handle serialized data
                 if (is_string($value)) {
                     $value = self::unserializeString($value);
                 }
 
-                // Handle Arrayable objects
                 if ($value instanceof Arrayable) {
+                    // This also handles other instances of MetaTagBag as they are Arrayable too
                     $value = $value->toArray();
                 }
 
-                // Handle generic objects
                 if (\is_object($value)) {
                     $value = (array) $value;
                 }
