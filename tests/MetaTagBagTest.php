@@ -122,7 +122,7 @@ final class MetaTagBagTest extends TestCase
 
     public function testIgnoresNumericKeys(): void
     {
-        $bag = new MetaTagBag(['a', 1 => 'b', '1' => 'c', '0.1' => 'd', 'keep' => 'me']);
+        $bag = new MetaTagBag(['a', 1 => 'b', '1' => 'c', '0.1' => 'd', '-1' => 'e', 'keep' => 'me']);
 
         $this->assertEquals(
             [['keep' => 'me']],
