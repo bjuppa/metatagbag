@@ -555,11 +555,11 @@ final class MetaTagBagTest extends TestCase
         $this->assertNull($bag->content(['c' => 'd']));
     }
 
-    public function testContentWithOtherAttribute(): void
+    public function testGetLastMatchingAttributeValue(): void
     {
         $bag = MetaTagBag::make(['a' => 'b', 'content' => 'skip'])
             ->add(['a' => 'b', 'content' => 'no', 'other' => 'yes']);
 
-        $this->assertEquals('yes', $bag->content(['a' => 'b'], 'other'));
+        $this->assertEquals('yes', $bag->getLastMatchingAttributeValue('other', ['a' => 'b']));
     }
 }

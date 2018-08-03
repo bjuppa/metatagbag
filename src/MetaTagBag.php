@@ -91,7 +91,12 @@ class MetaTagBag implements Arrayable, Htmlable, \Countable
         return (bool) $this->count($attributes);
     }
 
-    public function content($attributesToMatch, $attributeToGet = 'content')
+    public function content($attributes)
+    {
+        return $this->getLastMatchingAttributeValue('content', $attributes);
+    }
+
+    public function getLastMatchingAttributeValue($attributeToGet, $attributesToMatch)
     {
         return $this->match($attributesToMatch)->tags->map->get($attributeToGet)->last();
     }
