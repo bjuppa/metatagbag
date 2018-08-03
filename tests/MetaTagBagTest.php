@@ -538,4 +538,21 @@ final class MetaTagBagTest extends TestCase
             return $bag->toArray();
         }));
     }
+
+    public function testContentReturnsLastMatch(): void
+    {
+        $bag = MetaTagBag::make(['a' => 'b', 'content' => 'skip'])
+            ->add(['a' => 'b', 'content' => 'yes'])
+            ->add(['c' => 'd', 'content' => 'no match']);
+
+        $this->assertEquals('yes', $bag->content(['a' => 'b']));
+    }
+
+    public function testNoMatchingContentReturnsNull(): void
+    {
+        $bag = MetaTagBag::make(['a' => 'b', 'content' => 'skip']);
+
+        $this->assertNull($bag->content(['c' => 'd']));
+    }
+
 }

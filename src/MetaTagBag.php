@@ -78,7 +78,7 @@ class MetaTagBag implements Arrayable, Htmlable, \Countable
         })->values());
     }
 
-    public function count(...$attributes)
+    public function count(...$attributes): int
     {
         if (empty($attributes)) {
             return $this->tags->count();
@@ -86,9 +86,14 @@ class MetaTagBag implements Arrayable, Htmlable, \Countable
         return $this->match($attributes)->count();
     }
 
-    public function has(...$attributes)
+    public function has(...$attributes): bool
     {
         return (bool) $this->count($attributes);
+    }
+
+    public function content($attributes)
+    {
+        return $this->match($attributes)->tags->map->get('content')->last();
     }
 
     /**
