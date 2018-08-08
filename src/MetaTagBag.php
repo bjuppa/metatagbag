@@ -6,9 +6,10 @@ namespace Bjuppa\MetaTagBag;
 use Bjuppa\MetaTagBag\Contracts\MetaTagProvider;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 
-class MetaTagBag implements Arrayable, Htmlable, \Countable
+class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSerializable
 {
     /**
      * @var Collection
@@ -167,6 +168,11 @@ class MetaTagBag implements Arrayable, Htmlable, \Countable
         return $this->tags->toArray();
     }
 
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
     public function toHtml(): string
     {
         return $this->unique()
@@ -177,6 +183,17 @@ class MetaTagBag implements Arrayable, Htmlable, \Countable
                 })->implode(' ') . ">";
             })
             ->implode("\n");
+    }
+
+    /**
+     * Convert the object to its JSON representation.
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->jsonSerialize(), $options);
     }
 
     public function __toString()

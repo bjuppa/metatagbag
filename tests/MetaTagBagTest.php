@@ -523,6 +523,20 @@ final class MetaTagBagTest extends TestCase
         $this->assertEquals(true, $bag->has($this->descriptionTag));
     }
 
+    public function testConvertingToJson(): void
+    {
+        $bag = new MetaTagBag($this->descriptionTag);
+
+        $json = $bag->toJson();
+
+        $this->assertInternalType('string', $json);
+
+        $this->assertInternalType('array', json_decode($json, true));
+        $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
+
+        $this->assertEquals(new MetaTagBag($json), $bag);
+    }
+
     public function testConvertingToStringReturnsHtml(): void
     {
         $bag = new MetaTagBag($this->descriptionTag);
