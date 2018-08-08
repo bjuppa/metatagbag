@@ -55,6 +55,32 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
         return $this;
     }
 
+    /**
+     * Sort through each item with a callback.
+     *
+     * @param  callable|null  $callback
+     * @return static
+     */
+    public function sort(callable $callback = null)
+    {
+        $callback = $callback ?: function ($a, $b) {
+            if (!empty($a['charset'])) {
+                return -1;
+            }
+            if (!empty($b['charset'])) {
+                return 1;
+            }
+            if ($a['http-equiv'] ?? null == 'X-UA-Compatible') {
+                return -1;
+            }
+            if ($b['http-equiv'] ?? null == 'X-UA-Compatible') {
+                return 1;
+            }
+            return 0;
+        };
+        return new static($this->tags->sort($callback));
+    }
+
     public function unique(...$attributes)
     {
         $tags = $this->tags->reverse();
@@ -175,9 +201,8 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
 
     public function toHtml(): string
     {
-        return $this->unique()
-            ->tags
-            ->map(function ($tag) {
+        return $this->unique()->sort()
+            ->tags->map(function ($tag) {
                 return "<meta " . $tag->map(function ($value, $name) {
                     return $name . '="' . htmlspecialchars($value) . '"';
                 })->implode(' ') . ">";

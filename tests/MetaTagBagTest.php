@@ -19,6 +19,15 @@ final class MetaTagBagTest extends TestCase
         'content' => 'key,words',
     ];
 
+    protected $charsetTag = [
+        'charset' => 'UTF-8',
+    ];
+
+    protected $XUACompatibleTag = [
+        'http-equiv' => 'X-UA-Compatible',
+        'content' => "IE=Edge",
+    ];
+
     public function testCanBeCreated(): void
     {
         $bag = new MetaTagBag();
@@ -575,5 +584,18 @@ final class MetaTagBagTest extends TestCase
             ->add(['a' => 'b', 'content' => 'no', 'other' => 'yes']);
 
         $this->assertEquals('yes', $bag->getLastMatchingAttributeValue('other', ['a' => 'b']));
+    }
+
+    public function testSorting(): void
+    {
+        $bag = MetaTagBag::make(
+            ['no' => '1'],
+            $this->XUACompatibleTag,
+            ['no' => '2'],
+            ['no' => '3'],
+            $this->charsetTag
+        );
+
+        $this->assertEquals("<meta charset=\"UTF-8\">\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\">\n<meta no=\"1\">\n<meta no=\"2\">\n<meta no=\"3\">", $bag->toHtml());
     }
 }
