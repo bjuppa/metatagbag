@@ -309,6 +309,16 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
+    public function testListAttributesAreCommaSeparatedInHTML(): void
+    {
+        $bag = new MetaTagBag(['a' => [1, 2]]);
+
+        $this->assertEquals(
+            '<meta a="1,2">',
+            $bag->toHTML()
+        );
+    }
+
     public function testMergeCanBeChained(): void
     {
         $bag = new MetaTagBag(['a' => 'b']);

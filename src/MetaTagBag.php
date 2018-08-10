@@ -204,7 +204,7 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
         return $this->unique()->sort()
             ->tags->map(function ($tag) {
                 return "<meta " . $tag->map(function ($value, $name) {
-                    return $name . '="' . htmlspecialchars($value) . '"';
+                    return $name . '="' . htmlspecialchars(Collection::wrap($value)->flatten()->implode(',')) . '"';
                 })->implode(' ') . ">";
             })
             ->implode("\n");
