@@ -1,6 +1,6 @@
 # Meta Tag Bag
 
-A PHP class for collecting and manipulating HTML meta tags before echoing.
+A PHP class for collecting and manipulating HTML meta tags before echoing in the `<head>`.
 Works well with Laravel, and without.
 
 Inspired by [Laravel's `MessageBag`](https://laravel.com/api/master/Illuminate/Support/MessageBag.html).
