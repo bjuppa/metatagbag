@@ -64,7 +64,10 @@ so in a [Blade template](https://laravel.com/docs/blade) you can echo the tags
 by putting any instance within curly braces:
 
 ```php
+<head>
 {{ Bjuppa\MetaTagBag\MetaTagBag::make(['name' => 'description', 'content' => 'A description']) }}
+<title>Page title</title>
+</head>
 ```
 
 Casting a `MetaTagBag` to a string will also bring out the HTML representation:
