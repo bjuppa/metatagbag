@@ -111,10 +111,10 @@ It's a wrapper around `getLastMatchingAttributeValue()` that does the same for a
 The `sort()` method called without arguments will return a new `MetaTagBag` instance where `charset`
 and `http-equiv="X-UA-Compatible"` tags are placed first.
 
-If a `callable` is given, it will be used just like
+If a callback is given, it will be used just like
 [PHP's `uasort` parameters](https://secure.php.net/manual/en/function.uasort.php#refsect1-function.uasort-parameters).
 
 ## Optional manipulation
 
-The `pipe()` method passes the `MetaTagBag` to the given `callable` and returns the result.
+The `pipe()` method passes the `MetaTagBag` to the given callback and returns the result.
 For example it can be used to fluently check if a `MetaTagBag` contains some tag, and if so add or remove some other tag.
