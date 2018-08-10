@@ -109,10 +109,10 @@ The `forget()` method will remove all matching tags from the `MetaTagBag` instan
 
 The `match()` method can be used to filter out matching tags into a new `MetaTagBag`.
 
-The `unique()` method returns a new `MetaTagBag` instance where all duplicate tags have been removed
+The `unique()` method returns a new `MetaTagBag` where all duplicate tags have been removed
 (keeping the last).
 
-In addition, if `unique()` is called with parameters,
+In addition, if `unique()` is called with arguments,
 matching tags will only appear once in the new `MetaTagBag`
 (also keeping the last).
 
