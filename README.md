@@ -113,7 +113,7 @@ The `unique()` method returns a new `MetaTagBag` where all duplicate tags have b
 (keeping the last).
 
 In addition, if `unique()` is called with arguments,
-matching tags will only appear once in the new `MetaTagBag`
+matching tags will only appear once in the returned `MetaTagBag`
 (also keeping the last).
 
 ## Inspecting a `MetaTagBag`
