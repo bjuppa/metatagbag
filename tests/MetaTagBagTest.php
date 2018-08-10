@@ -156,14 +156,11 @@ final class MetaTagBagTest extends TestCase
         $this->assertEquals([], $bag->toArray());
     }
 
-    public function testCanBeCreatedFromSerialization(): void
+    public function testCantBeCreatedFromPHPSerialization(): void
     {
         $bag = new MetaTagBag(\serialize($this->descriptionTag));
 
-        $this->assertEquals(
-            [$this->descriptionTag],
-            $bag->toArray()
-        );
+        $this->assertEmpty($bag->toArray());
     }
 
     public function testIgnoresInvalidSerialization(): void

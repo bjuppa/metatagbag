@@ -189,7 +189,7 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
             return $decoded_json;
         }
 
-        return @\unserialize($string) ?: null;
+        return null;
     }
 
     public function toArray(): array
