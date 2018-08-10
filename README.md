@@ -97,9 +97,15 @@ In addition, if `unique()` is called with parameters,
 matching tags will only appear once in the new `MetaTagBag`
 (also keeping the last).
 
+## Inspecting a `MetaTagBag`
+
+The methods `match()`, `count()`, and `has()` can be used to filter out matching tags, count matching tags,
+or check if any tags exist in a bag.
+
 ## Sorting tags
 
 The `sort()` method called without arguments will return a new `MetaTagBag` instance where `charset`
 and `http-equiv="X-UA-Compatible"` tags are placed first.
 
-If a `callable` is given, it will be used just like [PHP's `uasort` parameters](https://secure.php.net/manual/en/function.uasort.php#refsect1-function.uasort-parameters).
+If a `callable` is given, it will be used just like
+[PHP's `uasort` parameters](https://secure.php.net/manual/en/function.uasort.php#refsect1-function.uasort-parameters).
