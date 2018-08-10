@@ -67,6 +67,13 @@ by putting any instance within curly braces:
 {{ Bjuppa\MetaTagBag\MetaTagBag::make(['name' => 'description', 'content' => 'A description']) }}
 ```
 
+Casting a `MetaTagBag` to a string will also bring out the HTML representation:
+
+```php
+echo $bag; //Implicit string casting
+$html = (string) $bag; //Explicit string casting
+```
+
 ## Adding tags
 
 The `add()` method will modify the `MetaTagBag` instance, adding any tags supplied without checking for duplicates.
