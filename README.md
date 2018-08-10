@@ -113,3 +113,8 @@ and `http-equiv="X-UA-Compatible"` tags are placed first.
 
 If a `callable` is given, it will be used just like
 [PHP's `uasort` parameters](https://secure.php.net/manual/en/function.uasort.php#refsect1-function.uasort-parameters).
+
+## Optional manipulation
+
+The `pipe()` method passes the `MetaTagBag` to the given `callable` and returns the result.
+For example it can be used to fluently check if a `MetaTagBag` contains some tag, and if so add or remove some other tag.
