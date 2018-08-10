@@ -51,7 +51,7 @@ and implementations of `MetaTagProvider` will pull out that instance's `MetaTagB
 ## Output
 
 The `MetaTagBag` should usually be rendered first within the `<head>` element, before any other elements like `<title>`.
-This is because it may contain a `charset` meta tag, and that needs to come before any other content.
+This is because it may contain a `charset` meta tag that should come before any other content.
 
 ```php
 // Return a string of HTML tags from the bag's contents
@@ -77,12 +77,25 @@ echo $bag; //Implicit string casting
 $html = (string) $bag; //Explicit string casting
 ```
 
+### Output of comma-separated list attributes
+
+For HTML, any array attribute will be imploded into a comma-separated list.
+This can for example be used with a `name="keywords"` meta tag,
+where the keywords in the `content` attribute can be treated as a list until the time of rendering.
+
 ## Adding tags
 
 The `add()` method will modify the `MetaTagBag` instance, adding any tags supplied without checking for duplicates.
 
 The `merge()` method will also modify the `MetaTagBag` instance, but will overwrite any existing tags having the same
 `name`, `http-equiv`, `itemprop`, or `property` attributes.
+
+### Merging array attributes
+
+If a tag to be merged has an array as its `content` attribute,
+that array will be merged with the `content` of any existing matching tag in the bag.
+This can for example be used with `name="keywords"` meta tags,
+where one may want to add keywords, rather than overwriting them.
 
 ## Removing tags
 
