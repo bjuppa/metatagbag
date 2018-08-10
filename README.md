@@ -134,5 +134,8 @@ For example it can be used to fluently check if a `MetaTagBag` contains some tag
 
 ## Converting to json
 
-`MetaTagBag` instances can be supplied directly to PHP's `json_encode()` and there's also a method `toJson()`
- from Laravel's `Jsonable` contract.
+`MetaTagBag` is [`JsonSerializable`](http://php.net/manual/en/class.jsonserializable.php)
+so instances can be supplied directly to [PHP's `json_encode()`](http://php.net/manual/en/function.json-encode.php) function.
+Also, because `MetaTagBag` implements
+[Laravel's `Jsonable` contract](https://laravel.com/api/master/Illuminate/Contracts/Support/Jsonable.html),
+there's also the `toJson()` method.
