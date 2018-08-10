@@ -103,6 +103,9 @@ matching tags will only appear once in the new `MetaTagBag`
 
 The methods `count()` and `has()` can be used to count matching tags or check if any tags exist in a bag.
 
+The `content()` method will pull out the *value* of the `content` attribute of the last matching tag.
+It's a wrapper around `getLastMatchingAttributeValue()` that does the same for any attribute.
+
 ## Sorting tags
 
 The `sort()` method called without arguments will return a new `MetaTagBag` instance where `charset`
