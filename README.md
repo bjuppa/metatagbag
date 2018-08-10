@@ -28,6 +28,9 @@ $bag = MetaTagBag::make(
 
 ## Output
 
+The `MetaTagBag` should usually be rendered first within the `<head>` element, before any other elements like `<title>`.
+This is because it may contain a `charset` meta tag, and that needs to come before any other content.
+
 ```php
 // Return a string of HTML tags from the bag's contents
 $bag->toHtml();
