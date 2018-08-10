@@ -89,9 +89,9 @@ where the keywords in the `content` attribute can be treated as a list until the
 
 ## Adding tags
 
-The `add()` method will modify the `MetaTagBag` instance, adding any tags supplied without checking for duplicates.
+The `add(...$tags)` method will modify the `MetaTagBag` instance, adding any tags supplied without checking for duplicates.
 
-The `merge()` method will also modify the `MetaTagBag` instance, but will overwrite any existing tags having the same
+The `merge(...$tags)` method will also modify the `MetaTagBag` instance, but will overwrite any existing tags having the same
 `name`, `http-equiv`, `itemprop`, or `property` attributes.
 
 ### Merging array attributes
@@ -103,25 +103,28 @@ where one may want to add keywords, rather than overwriting them.
 
 ## Removing tags
 
-The `forget()` method will remove all matching tags from the `MetaTagBag` instance.
+The `forget(...$attributes)` method will remove all matching tags from the `MetaTagBag` instance.
 
 ## Filtering tags
 
-The `match()` method can be used to filter out matching tags into a new `MetaTagBag`.
+The `match(...$attributes)` method can be used to filter out matching tags into a new `MetaTagBag`.
 
 The `unique()` method returns a new `MetaTagBag` where all duplicate tags have been removed
 (keeping the last).
 
-In addition, if `unique()` is called with arguments,
+In addition, if `unique(...$attributes)` is called with arguments,
 matching tags will only appear once in the returned `MetaTagBag`
 (also keeping the last).
 
 ## Inspecting a `MetaTagBag`
 
-The methods `count()` and `has()` can be used to count matching tags or check if any tags exist in a bag.
+The methods `count(...$attributes)` and `has(...$attributes)` can be used to count matching tags
+or check if any matching tags exist in a bag.
+Both can be called without attributes to operate on all tags in the bag.
 
-The `content()` method will pull out the *value* of the `content` attribute of the last matching tag.
-It's a wrapper around `getLastMatchingAttributeValue()` that does the same for any attribute.
+The `content($attributes)` method will pull out the *value* of the `content` attribute of the last matching tag.
+It's a wrapper around `getLastMatchingAttributeValue($attributeToGet, $attributesToMatch)`
+that does the same for any attribute.
 
 ## Sorting tags
 
@@ -133,7 +136,7 @@ If a callback is given, it will be used just like
 
 ## Optional manipulation
 
-The `pipe()` method passes the `MetaTagBag` to the given callback and returns the result.
+The `pipe(callable $callback)` method passes the `MetaTagBag` to the given callback and returns the result.
 For example it can be used to fluently check if a `MetaTagBag` contains some tag, and if so add or remove some other tag.
 
 ## Converting to json
