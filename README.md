@@ -74,7 +74,7 @@ by putting any instance within curly braces:
 </head>
 ```
 
-Casting a `MetaTagBag` to a string will also bring out the HTML representation:
+Casting a `MetaTagBag` to `string` will also bring out the HTML representation:
 
 ```php
 echo $bag; //Implicit string casting
