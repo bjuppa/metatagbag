@@ -26,6 +26,28 @@ $bag = MetaTagBag::make(
 
 ```
 
+### Input formats
+
+All methods that operate on some kind of list of meta tags will accept almost any type of map-like (key-value) input, optionally nested in some kind of list.
+
+#### Tags in separate arguments
+
+The most terse syntax can be seen in the creation examples above, where multiple tags are supplied, each as its own argument to the method.
+
+#### Flattening lists
+
+If some kind of nested list is encountered, it will be flattened so that any item lacking a "string" key will become its own tag in the resulting one-dimensional list of tags.
+
+#### Serialized tags
+
+If a string is encountered within a supplied list, attempts will be made to deserialize it from json or PHP's stored representation.
+
+#### Object tags
+
+If an object is encountered within a supplied list, it will be converted to an array, and merged into the flattened list.
+Implementations of Laravel's `Arrayable`, like `Collection` and other `MetaTagBag`s will work just fine,
+and implementations of `MetaTagProvider` will pull out that instance's `MetaTagBag`.
+
 ## Output
 
 The `MetaTagBag` should usually be rendered first within the `<head>` element, before any other elements like `<title>`.
