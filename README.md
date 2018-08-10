@@ -70,6 +70,10 @@ Implementations of
 [`Bjuppa\MetaTagBag\Contracts\MetaTagProvider`](https://github.com/bjuppa/metatagbag/blob/master/src/Contracts/MetaTagProvider.php)
 will pull out that instance's `MetaTagBag`.
 
+```php
+MetaTagBag::make(new MetaTagBag(['name' => 'description', 'content' => 'A description']));
+```
+
 ## Output
 
 The `MetaTagBag` should usually be rendered first within the `<head>` element, before any other elements like `<title>`.
