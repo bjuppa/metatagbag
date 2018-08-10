@@ -54,7 +54,11 @@ $bag = new MetaTagBag(
 
 #### Serialized tags
 
-If a string is encountered within a supplied list, attempts will be made to deserialize it from json or PHP's stored representation.
+If a string is encountered within a supplied list, attempts will be made to deserialize it from json or [PHP's stored representation](http://php.net/manual/en/function.unserialize.php).
+
+```php
+MetaTagBag::make('[{"name":"description","content":"A description"},{"name":"keywords","content":["key","words"]}]');
+```
 
 #### Object tags
 
