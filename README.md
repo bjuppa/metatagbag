@@ -45,8 +45,12 @@ If a string is encountered within a supplied list, attempts will be made to dese
 #### Object tags
 
 If an object is encountered within a supplied list, it will be converted to an array, and merged into the flattened list.
-Implementations of Laravel's `Arrayable`, like `Collection` and other `MetaTagBag`s will work just fine,
-and implementations of `MetaTagProvider` will pull out that instance's `MetaTagBag`.
+Implementations of [Laravel's `Arrayable`](https://laravel.com/api/master/Illuminate/Contracts/Support/Arrayable.html),
+like [Laravel's `Collection`](https://laravel.com/api/master/Illuminate/Support/Collection.html)
+and other `MetaTagBag`s will work just fine.
+Implementations of
+[`Bjuppa\MetaTagBag\Contracts\MetaTagProvider`](https://github.com/bjuppa/metatagbag/blob/master/src/Contracts/MetaTagProvider.php)
+will pull out that instance's `MetaTagBag`.
 
 ## Output
 
