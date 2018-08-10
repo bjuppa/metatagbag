@@ -118,3 +118,8 @@ If a callback is given, it will be used just like
 
 The `pipe()` method passes the `MetaTagBag` to the given callback and returns the result.
 For example it can be used to fluently check if a `MetaTagBag` contains some tag, and if so add or remove some other tag.
+
+## Converting to json
+
+`MetaTagBag` instances can be supplied directly to PHP's `json_encode()` and there's also a method `toJson()`
+ from Laravel's `Jsonable` contract.
