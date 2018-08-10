@@ -142,7 +142,8 @@ matching tags will only appear once in the returned `MetaTagBag`
 
 The methods `count(...$attributes)` and `has(...$attributes)` can be used to count matching tags
 or check if any matching tags exist in a bag.
-Both can be called without attributes to operate on all tags in the bag.
+Of course, `count()` can be called without arguments to return the total number of tags in the bag,
+while calling `has()` without arguments will always return `false`.
 
 The `content($attributes)` method will pull out the *value* of the `content` attribute of the last matching tag.
 It's a wrapper around `getLastMatchingAttributeValue($attributeToGet, $attributesToMatch)`
