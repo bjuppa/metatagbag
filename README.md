@@ -37,7 +37,20 @@ The most terse syntax can be seen in the creation examples above, where multiple
 
 #### Flattening lists
 
-If some kind of nested list is encountered, it will be flattened so that any item lacking a "string" key will become its own tag in the resulting one-dimensional list of tags.
+If some kind of nested list is encountered, it will be flattened so that any item lacking a "string" key will become its own
+tag in the resulting *one-dimensional* list of tags.
+
+```php
+$bag = new MetaTagBag(
+  [
+    ['name' => 'description', 'content' => 'A description'],
+    ['name' => 'keywords', 'content' => 'key,words'],
+    [
+      ['name' => 'nested', 'content' => 'This will end up in the top-level with the other tags'],
+    ]
+  ]
+);
+```
 
 #### Serialized tags
 
