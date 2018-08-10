@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 
-class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSerializable
+class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSerializable, \Serializable
 {
     /**
      * @var Collection
@@ -227,5 +227,15 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
     public function __toString()
     {
         return $this->toHtml();
+    }
+
+    public function serialize()
+    {
+        return $this->toJson();
+    }
+
+    public function unserialize($data)
+    {
+        $this->__construct($data);
     }
 }
