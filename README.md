@@ -90,6 +90,8 @@ The `forget()` method will remove all matching tags from the `MetaTagBag` instan
 
 ## Filtering tags
 
+The `match()` method can be used to filter out matching tags into a new `MetaTagBag`.
+
 The `unique()` method returns a new `MetaTagBag` instance where all duplicate tags have been removed
 (keeping the last).
 
@@ -99,8 +101,7 @@ matching tags will only appear once in the new `MetaTagBag`
 
 ## Inspecting a `MetaTagBag`
 
-The methods `match()`, `count()`, and `has()` can be used to filter out matching tags, count matching tags,
-or check if any tags exist in a bag.
+The methods `count()` and `has()` can be used to count matching tags or check if any tags exist in a bag.
 
 ## Sorting tags
 
