@@ -34,14 +34,17 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
 
     public function merge(...$tags)
     {
-        self::normalizeArguments($tags)->each(function ($tag) {
+        return $this->add(self::normalizeArguments($tags)->map(function ($tag) {
             foreach (['name', 'http-equiv', 'itemprop', 'property'] as $attribute) {
                 if ($tag->has($attribute)) {
+                    if (isset($tag['content']) and is_array($tag['content'])) {
+                        $tag['content'] = array_unique(array_merge($tag['content'], (array) $this->content($tag->only($attribute))));
+                    }
                     $this->forget($tag->only($attribute));
                 }
             }
-        });
-        return $this->add($tags);
+            return $tag;
+        }));
     }
 
     public function forget(...$attributes)

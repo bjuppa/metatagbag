@@ -384,6 +384,17 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
+    public function testListAttributesAreMerged(): void
+    {
+        $bag = new MetaTagBag(['name' => 'a', 'content' => [1, 2]]);
+        $bag->merge(['name' => 'a', 'content' => [3, 2]]);
+
+        $this->assertEquals(
+            [['name' => 'a', 'content' => [3, 2, 1]]],
+            $bag->toArray()
+        );
+    }
+
     public function testForgetCanBeChained(): void
     {
         $bag = new MetaTagBag(['a' => 'b']);
