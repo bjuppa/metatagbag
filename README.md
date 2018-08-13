@@ -6,17 +6,21 @@ Works well with Laravel, and without.
 
 Inspired by [Laravel's `MessageBag`](https://laravel.com/api/master/Illuminate/Support/MessageBag.html).
 
-`composer require bjuppa/metatagbag`
+```bash
+composer require bjuppa/metatagbag
+```
+
+## Table of contents
 
 * [Creating a `MetaTagBag`](#creating-a-metatagbag)
-    * [Input formats](#input-formats)
-* [Output](#output)
-* [Adding tags](#adding-tags)
-* [Removing tags](#removing-tags)
-* [Filtering tags](#filtering-tags)
+* [Input Formats](#input-formats)
+* [HTML Output](#html-output)
+* [Adding Tags](#adding-tags)
+* [Removing Tags](#removing-tags)
+* [Filtering Tags](#filtering-tags)
 * [Inspecting a `MetaTagBag`](#inspecting-a-metatagbag)
-* [Sorting tags](#sorting-tags)
-* [Optional manipulation](#optional-manipulation)
+* [Sorting Tags](#sorting-tags)
+* [Optional Manipulation](#optional-manipulation)
 * [Converting to json](#converting-to-json)
 
 ## Creating a `MetaTagBag`
@@ -38,15 +42,15 @@ $bag = MetaTagBag::make(
 
 ```
 
-### Input formats
+## Input Formats
 
 All methods that operate on some kind of list of meta tags will accept almost any type of map-like (key-value) input, optionally nested in some kind of list.
 
-#### Tags in separate arguments
+### Tags can be in separate arguments
 
 The most terse syntax can be seen in the creation examples above, where multiple tags are supplied, each as its own argument to the method.
 
-#### Flattening lists
+### Lists of tags are flattened
 
 If some kind of nested list is encountered, it will be flattened so that any item lacking a "string" key will become its own
 tag in the resulting *one-dimensional* list of tags.
@@ -63,7 +67,7 @@ $bag = new MetaTagBag(
 );
 ```
 
-#### Serialized tags
+### Json strings are deserialized
 
 If a string is encountered within a supplied list, attempts will be made to deserialize it from json.
 
@@ -71,7 +75,7 @@ If a string is encountered within a supplied list, attempts will be made to dese
 MetaTagBag::make('[{"name":"description","content":"A description"},{"name":"keywords","content":["key","words"]}]');
 ```
 
-#### Object tags
+### Objects are converted to arrays
 
 If an object is encountered within a supplied list, it will be converted to an array, and merged into the flattened list.
 Implementations of [Laravel's `Arrayable`](https://laravel.com/api/master/Illuminate/Contracts/Support/Arrayable.html),
@@ -85,7 +89,7 @@ will pull out that instance's `MetaTagBag`.
 MetaTagBag::make(new MetaTagBag(['name' => 'description', 'content' => 'A description']));
 ```
 
-## Output
+## HTML Output
 
 The `MetaTagBag` should usually be rendered first within the `<head>` element, before any other elements like `<title>`.
 This is because it may contain a `charset` meta tag that should come before any other content.
@@ -120,7 +124,7 @@ For HTML, any array attribute will be imploded into a comma-separated list.
 This can for example be used with a `name="keywords"` meta tag,
 where the keywords in the `content` attribute can be treated as a list until the time of rendering.
 
-## Adding tags
+## Adding Tags
 
 The `add(...$tags)` method will modify the `MetaTagBag` instance, adding any tags supplied without checking for duplicates.
 
@@ -134,11 +138,11 @@ that array will be merged with the `content` of any existing matching tag in the
 This can for example be used with `name="keywords"` meta tags,
 where one may want to add keywords, rather than overwriting them.
 
-## Removing tags
+## Removing Tags
 
 The `forget(...$attributes)` method will remove all matching tags from the `MetaTagBag` instance.
 
-## Filtering tags
+## Filtering Tags
 
 The `match(...$attributes)` method can be used to filter out matching tags into a new `MetaTagBag`.
 
@@ -160,7 +164,7 @@ The `content($attributes)` method will pull out the *value* of the `content` att
 It's a wrapper around `getLastMatchingAttributeValue($attributeToGet, $attributesToMatch)`
 that does the same for any attribute.
 
-## Sorting tags
+## Sorting Tags
 
 The `sort()` method called without arguments will return a new `MetaTagBag` instance where `charset`
 and `http-equiv="X-UA-Compatible"` tags are placed first.
@@ -168,7 +172,7 @@ and `http-equiv="X-UA-Compatible"` tags are placed first.
 If a callback is given, it will be used just like
 [PHP's `uasort` parameters](https://secure.php.net/manual/en/function.uasort.php#refsect1-function.uasort-parameters).
 
-## Optional manipulation
+## Optional Manipulation
 
 The `pipe(callable $callback)` method passes the `MetaTagBag` to the given callback and returns the result.
 For example it can be used to fluently check if a `MetaTagBag` contains some tag, and if so add or remove some other tag.
