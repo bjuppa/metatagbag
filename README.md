@@ -8,6 +8,17 @@ Inspired by [Laravel's `MessageBag`](https://laravel.com/api/master/Illuminate/S
 
 `composer require bjuppa/metatagbag`
 
+* [Creating a `MetaTagBag`](#creating-a-metatagbag)
+    * [Input formats](#input-formats)
+* [Output](#output)
+* [Adding tags](#adding-tags)
+* [Removing tags](#removing-tags)
+* [Filtering tags](#filtering-tags)
+* [Inspecting a `MetaTagBag`](#inspecting-a-metatagbag)
+* [Sorting tags](#sorting-tags)
+* [Optional manipulation](#optional-manipulation)
+* [Converting to json](#converting-to-json)
+
 ## Creating a `MetaTagBag`
 
 ```php
