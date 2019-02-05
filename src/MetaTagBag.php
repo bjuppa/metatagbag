@@ -150,7 +150,7 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
     {
         $tags = new Collection();
         $tag = Collection::wrap($args)->reject(function ($value, $key) use (&$tags) {
-            if (is_numeric($key)) {
+            if (is_numeric($key) or empty($key)) {
                 if ($value instanceof MetaTagProvider) {
                     $value = $value->getMetaTagBag();
                 }
