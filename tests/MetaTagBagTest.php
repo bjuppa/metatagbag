@@ -139,6 +139,16 @@ final class MetaTagBagTest extends TestCase
         );
     }
 
+    public function testIgnoresEmptyKeys(): void
+    {
+        $bag = new MetaTagBag(['' => 'a', 'keep' => 'me']);
+
+        $this->assertEquals(
+            [['keep' => 'me']],
+            $bag->toArray()
+        );
+    }
+
     public function testCanBeCreatedFromJson(): void
     {
         $bag = new MetaTagBag('{"a": "b"}');
