@@ -22,6 +22,7 @@ composer require bjuppa/metatagbag
 * [Sorting Tags](#sorting-tags)
 * [Optional Manipulation](#optional-manipulation)
 * [Converting to json](#converting-to-json)
+* [Alternative packages](#alternative-packages)
 
 ## Creating a `MetaTagBag`
 
@@ -184,3 +185,7 @@ so instances can be supplied directly to [PHP's `json_encode()`](http://php.net/
 Also, because `MetaTagBag` implements
 [Laravel's `Jsonable` contract](https://laravel.com/api/master/Illuminate/Contracts/Support/Jsonable.html),
 there's also the `toJson()` method.
+
+## Alternative packages
+
+For a more opinionated end-to-end solution for meta tags in Laravel apps you should check out [butschster/LaravelMetaTags](https://github.com/butschster/LaravelMetaTags).
