@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Bjuppa\MetaTagBag\Tests;
 
@@ -282,14 +283,15 @@ final class MetaTagBagTest extends TestCase
 
         $this->assertEquals(
             "<meta a=\"b\" c=\"d\">",
-            $bag->toHtml());
+            $bag->toHtml()
+        );
     }
 
     public function testEncodesHtmlSpecialCharacters(): void
     {
         $bag = new MetaTagBag(['a' => '<&>"']);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'a="&lt;&amp;&gt;&quot;"',
             $bag->toHtml()
         );
@@ -559,9 +561,9 @@ final class MetaTagBagTest extends TestCase
 
         $json = $bag->toJson();
 
-        $this->assertInternalType('string', $json);
+        $this->assertIsString($json);
 
-        $this->assertInternalType('array', json_decode($json, true));
+        $this->assertIsArray(json_decode($json, true));
         $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
 
         $this->assertEquals(new MetaTagBag($json), $bag);
@@ -625,7 +627,7 @@ final class MetaTagBagTest extends TestCase
         $bag = MetaTagBag::make($this->descriptionTag, $this->keywordsTag);
         $serialized = serialize($bag);
 
-        $this->assertContains($bag->toJson(), $serialized);
+        $this->assertStringContainsString($bag->toJson(), $serialized);
         $this->assertEquals($bag->toArray(), unserialize($serialized)->toArray());
     }
 }
