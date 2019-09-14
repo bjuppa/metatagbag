@@ -4,3 +4,9 @@
 
 If you want your own local configuration for phpunit,
 copy the file `phpunit.xml.dist` to `phpunit.xml` and modify the latter to your needs.
+
+## Dependency version testing
+
+- `composer update --prefer-lowest` can be used before running tests for testing backwards compatibility.
+- `composer show -D -o` can be used to check how far behind latest version the currently installed dependencies are.
+- `composer update` will install the latest versions of dependencies.
