@@ -306,7 +306,7 @@ final class MetaTagBagTest extends TestCase
         );
 
         $this->assertEquals(
-            implode(['<meta c="d" a="b">', '<meta a="b" c="d" e="f">'], "\n"),
+            implode("\n", ['<meta c="d" a="b">', '<meta a="b" c="d" e="f">']),
             $bag->toHtml()
         );
     }
