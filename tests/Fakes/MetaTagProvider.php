@@ -7,6 +7,8 @@ use Bjuppa\MetaTagBag\Contracts\MetaTagProvider as MetaTagProviderContract;
 
 class MetaTagProvider implements MetaTagProviderContract
 {
+    private MetaTagBag $metaTagBag;
+
     public function __construct(...$args) {
         $this->metaTagBag = new MetaTagBag($args);
     }

@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Bjuppa\MetaTagBag;
 
@@ -9,7 +10,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 
-class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSerializable, \Serializable
+class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSerializable
 {
     /**
      * @var Collection
@@ -64,7 +65,7 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
      * @param  callable|null  $callback
      * @return static
      */
-    public function sort(callable $callback = null)
+    public function sort(?callable $callback = null)
     {
         $callback = $callback ?: function ($a, $b) {
             if (!empty($a['charset'])) {
@@ -197,7 +198,7 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
         return $this->tags->toArray();
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }
@@ -227,15 +228,5 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
     public function __toString()
     {
         return $this->toHtml();
-    }
-
-    public function serialize()
-    {
-        return $this->toJson();
-    }
-
-    public function unserialize($data)
-    {
-        $this->__construct($data);
     }
 }

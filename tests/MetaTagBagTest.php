@@ -621,13 +621,4 @@ final class MetaTagBagTest extends TestCase
 
         $this->assertEquals("<meta charset=\"UTF-8\">\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\">\n<meta no=\"1\">\n<meta no=\"2\">\n<meta no=\"3\">", $bag->toHtml());
     }
-
-    public function testSerializesToJson(): void
-    {
-        $bag = MetaTagBag::make($this->descriptionTag, $this->keywordsTag);
-        $serialized = serialize($bag);
-
-        $this->assertStringContainsString($bag->toJson(), $serialized);
-        $this->assertEquals($bag->toArray(), unserialize($serialized)->toArray());
-    }
 }
