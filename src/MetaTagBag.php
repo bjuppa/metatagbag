@@ -64,7 +64,7 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
      * @param  callable|null  $callback
      * @return static
      */
-    public function sort(callable $callback = null)
+    public function sort(?callable $callback = null)
     {
         $callback = $callback ?: function ($a, $b) {
             if (!empty($a['charset'])) {
