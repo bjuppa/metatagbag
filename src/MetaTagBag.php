@@ -1,5 +1,6 @@
 <?php
-declare (strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Bjuppa\MetaTagBag;
 
@@ -227,15 +228,5 @@ class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSeri
     public function __toString()
     {
         return $this->toHtml();
-    }
-
-    public function serialize()
-    {
-        return $this->toJson();
-    }
-
-    public function unserialize($data)
-    {
-        $this->__construct($data);
     }
 }
