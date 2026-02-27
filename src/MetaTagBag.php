@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 
-class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSerializable, \Serializable
+class MetaTagBag implements Arrayable, Jsonable, Htmlable, \Countable, \JsonSerializable
 {
     /**
      * @var Collection
